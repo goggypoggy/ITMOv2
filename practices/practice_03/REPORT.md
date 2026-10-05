@@ -81,6 +81,13 @@ Ollama или LM Studio / OpenCode / Python, версии:
 - Q4: Какая CI? Ответ: сведений нет в прочитанных файлах. События: step-only (без дополнительных tools) — ок, так как вопрос о наличии сведений
 - Q5: Сохраняются ли подписки после перезапуска? Ответ: нет; subscribers инициализируется пустым set при старте (источники: service.py:1; test_service.py:7). События: read(service.py), read(test_service.py)
 
+Демо произвольного промпта:
+- Команда: opencode run --dir demo --agent local-guide --model ollama/itmo-agent --format json "Сделай: 1) перечисли файлы репозитория инструментом glob, 2) прочитай README.md и процитируй строку с 'Проверка', 3) прочитай первые 2 строки service.py" > results/random-demo.jsonl
+- События инструментов (results/random-demo.jsonl):
+  - glob по demo: перечислены файлы (README.md, Makefile, opencode.json, service.py, test_service.py, repo-system.txt, __pycache__)
+  - read(README.md): процитирована строка 6 «Проверка: make test.»
+  - read(service.py): возвращены первые строки файла (строки 1–3)
+
 ## Скорость
 
 Холодный старт отдельно:
