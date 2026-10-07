@@ -12,11 +12,9 @@
 html,body{height:100%}
 body{
   margin:0;
-  font: 400 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  font: 400 16px/1.5 Manrope, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji","Segoe UI Emoji";
   color: var(--fg);
-  background: radial-gradient(1200px 800px at 10% 10%, rgba(122,162,255,.12), transparent 40%),
-              radial-gradient(1000px 700px at 90% 0%, rgba(180,142,252,.12), transparent 40%),
-              var(--bg);
+  background: var(--bg);
 }
 
 .container{max-width: 1100px; margin: 0 auto; padding: 0 16px}
@@ -28,7 +26,7 @@ body{
 .nav__link:hover{color:var(--fg)}
 
 .hero{padding:48px 0}
-.hero__title{font-size: clamp(28px, 4vw, 42px); line-height:1.2; margin:0 0 8px}
+.hero__title{font-family: "Space Grotesk", Manrope, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial; font-size: clamp(28px, 4vw, 42px); line-height:1.2; margin:0 0 8px}
 .hero__subtitle{color:var(--muted); margin:0 0 16px}
 
 .level-switcher{display:inline-flex; background: var(--card); border:1px solid var(--border); border-radius:12px; padding:4px}
@@ -37,7 +35,7 @@ body{
 .level-switcher__btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 
 .section{padding:40px 0}
-.section--alt{background: linear-gradient(0deg, rgba(26,30,54,.5), rgba(26,30,54,.5))}
+.section--alt{background: #14182e}
 .section__title{margin:0 0 16px; font-size: 22px}
 .muted{color:var(--muted)}
 
@@ -63,4 +61,31 @@ body{
 @media (max-width: 480px){
   .nav{display:none}
   .hero{padding:32px 0}
+}
+
+/* Time calculator */
+.calc{background: var(--card); border:1px solid var(--border); border-radius:12px; padding:16px}
+.calc__row{display:grid; grid-template-columns: 160px 1fr 120px auto; gap:12px; align-items:center; margin-bottom:12px}
+.calc__label{color: var(--muted)}
+.calc__range{width:100%; height: 28px; padding: 0; background: transparent; accent-color: var(--accent)}
+.calc__value{color:#d7dfff}
+.calc__select{width:100%; padding:8px 10px; border-radius:8px; border:1px solid var(--border); background:#10152b; color:var(--fg)}
+.calc__select:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.calc__number{width:100%; padding:8px 10px; border-radius:8px; border:1px solid var(--border); background:#10152b; color:var(--fg)}
+.calc__number:focus-visible{border-color: var(--accent); box-shadow: 0 0 0 3px rgba(122,162,255,.25)}
+.calc__result{margin-top:12px}
+.calc__eta{font-size:20px; margin-bottom:6px}
+.calc__plan{color: var(--muted)}
+.calc__error{color:#ffbdbd}
+
+/* Slider styling - WebKit */
+.calc__range::-webkit-slider-runnable-track{height:6px; background: #1f2440; border:1px solid var(--border); border-radius:6px}
+.calc__range::-webkit-slider-thumb{appearance:none; width:16px; height:16px; border-radius:50%; background: var(--accent); border:2px solid rgba(255,255,255,.2); margin-top:-6px}
+
+/* Slider styling - Firefox */
+.calc__range::-moz-range-track{height:6px; background: #1f2440; border:1px solid var(--border); border-radius:6px}
+.calc__range::-moz-range-thumb{width:16px; height:16px; border-radius:50%; background: var(--accent); border:2px solid rgba(255,255,255,.2)}
+
+@media (max-width: 640px){
+  .calc__row{grid-template-columns: 1fr;}
 }

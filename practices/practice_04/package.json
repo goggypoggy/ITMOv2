@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "test": "playwright test"
+    "test": "playwright test",
+    "validate:data": "node scripts/validate-data.mjs",
+    "validate:data:fail": "node scripts/validate-data.mjs --simulate-error"
   },
   "dependencies": {
     "@playwright/test": "^1.63.0",

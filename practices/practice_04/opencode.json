@@ -27,6 +27,14 @@
         "@playwright/mcp@latest"
       ],
       "enabled": true
+    },
+    "validateData": {
+      "type": "local",
+      "command": [
+        "node",
+        "mcp/validate-data/server.mjs"
+      ],
+      "enabled": true
     }
   }
 }

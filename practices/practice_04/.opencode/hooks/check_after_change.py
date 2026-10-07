@@ -18,6 +18,16 @@ def main() -> int:
 
     print("[hook] Running npm test in:", project_root)
     try:
+        # Run data validation first
+        val = subprocess.run(["npm", "run", "validate:data"], cwd=str(project_root), check=False, capture_output=True, text=True)
+        if val.stdout:
+            sys.stdout.write(val.stdout)
+        if val.stderr:
+            sys.stderr.write(val.stderr)
+        if val.returncode != 0:
+            print(f"[hook] data validation failed with code {val.returncode}")
+            return val.returncode
+
         # Capture output so we can downgrade "No tests found" to success
         proc = subprocess.run(
             ["npm", "test"],

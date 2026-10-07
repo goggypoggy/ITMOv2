@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AI-репетитор по программированию</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="src/styles.css">
   <meta name="color-scheme" content="dark light">
 </head>
@@ -49,7 +52,20 @@
     <section id="calculator" class="section">
       <div class="container">
         <h2 class="section__title">Калькулятор</h2>
-        <p class="muted">Демо для времени обучения будет добавлено в фиче B.</p>
+        <form id="time-calculator" class="calc" aria-describedby="calc-help">
+          <div class="calc__row">
+            <label for="hours" class="calc__label">Часы в неделю</label>
+            <input id="hours" name="hours" type="range" min="1" max="40" value="10" step="1" class="calc__range" />
+            <input id="hours-num" name="hours-num" type="number" min="1" max="40" value="10" step="1" class="calc__number" aria-label="Часы (числом)" />
+            <div class="calc__value" aria-live="polite"><span id="hours-value">10</span> ч/нед</div>
+          </div>
+          <div class="calc__row">
+            <label for="goal" class="calc__label">Цель</label>
+            <select id="goal" name="goal" class="calc__select"></select>
+          </div>
+          <p id="calc-help" class="muted">Диапазон часов: 1–40. Результат обновляется автоматически.</p>
+          <div class="calc__result" aria-live="polite"></div>
+        </form>
       </div>
     </section>
   </main>
