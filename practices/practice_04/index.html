@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI-репетитор по программированию</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/styles.css">
+  <meta name="color-scheme" content="dark light">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header__inner">
+      <div class="logo">AI Tutor</div>
+      <nav class="nav" aria-label="Основная навигация">
+        <a href="#program" class="nav__link">Программа</a>
+        <a href="#pricing" class="nav__link">Тарифы</a>
+        <a href="#calculator" class="nav__link">Калькулятор</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero__inner">
+        <h1 class="hero__title">Личный AI-репетитор по программированию</h1>
+        <p class="hero__subtitle">Выберите уровень и увидите программу и тарифы, подходящие именно вам.</p>
+        <div id="level-switcher" class="level-switcher" role="tablist" aria-label="Выбор уровня">
+          <button class="level-switcher__btn" role="tab" aria-selected="false" data-level="Новичок">Новичок</button>
+          <button class="level-switcher__btn" role="tab" aria-selected="false" data-level="Средний">Средний</button>
+          <button class="level-switcher__btn" role="tab" aria-selected="false" data-level="Продвинутый">Продвинутый</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="program" class="section">
+      <div class="container">
+        <h2 class="section__title">Программа</h2>
+        <div id="catalog-list" class="catalog" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="pricing" class="section section--alt">
+      <div class="container">
+        <h2 class="section__title">Тарифы</h2>
+        <div id="pricing-cards" class="pricing" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="calculator" class="section">
+      <div class="container">
+        <h2 class="section__title">Калькулятор</h2>
+        <form id="time-calculator" class="calc" aria-describedby="calc-help">
+          <div class="calc__row">
+            <label for="hours" class="calc__label">Часы в неделю</label>
+            <input id="hours" name="hours" type="range" min="1" max="40" value="10" step="1" class="calc__range" />
+            <input id="hours-num" name="hours-num" type="number" min="1" max="40" value="10" step="1" class="calc__number" aria-label="Часы (числом)" />
+            <div class="calc__value" aria-live="polite"><span id="hours-value">10</span> ч/нед</div>
+          </div>
+          <div class="calc__row">
+            <label for="goal" class="calc__label">Цель</label>
+            <select id="goal" name="goal" class="calc__select"></select>
+          </div>
+          <p id="calc-help" class="muted">Диапазон часов: 1–40. Результат обновляется автоматически.</p>
+          <div class="calc__result" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>© 2026 AI Tutor</small>
+    </div>
+  </footer>
+
+  <script type="module" src="src/main.js"></script>
+  
+</body>
+</html>
