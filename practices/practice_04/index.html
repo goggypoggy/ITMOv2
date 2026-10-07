@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI-репетитор по программированию</title>
+  <link rel="stylesheet" href="src/styles.css">
+  <meta name="color-scheme" content="dark light">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header__inner">
+      <div class="logo">AI Tutor</div>
+      <nav class="nav" aria-label="Основная навигация">
+        <a href="#program" class="nav__link">Программа</a>
+        <a href="#pricing" class="nav__link">Тарифы</a>
+        <a href="#calculator" class="nav__link">Калькулятор</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero__inner">
+        <h1 class="hero__title">Личный AI-репетитор по программированию</h1>
+        <p class="hero__subtitle">Выберите уровень и увидите программу и тарифы, подходящие именно вам.</p>
+        <div id="level-switcher" class="level-switcher" role="tablist" aria-label="Выбор уровня">
+          <button class="level-switcher__btn" role="tab" aria-selected="false" data-level="Новичок">Новичок</button>
+          <button class="level-switcher__btn" role="tab" aria-selected="false" data-level="Средний">Средний</button>
+          <button class="level-switcher__btn" role="tab" aria-selected="false" data-level="Продвинутый">Продвинутый</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="program" class="section">
+      <div class="container">
+        <h2 class="section__title">Программа</h2>
+        <div id="catalog-list" class="catalog" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="pricing" class="section section--alt">
+      <div class="container">
+        <h2 class="section__title">Тарифы</h2>
+        <div id="pricing-cards" class="pricing" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="calculator" class="section">
+      <div class="container">
+        <h2 class="section__title">Калькулятор</h2>
+        <p class="muted">Демо для времени обучения будет добавлено в фиче B.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>© 2026 AI Tutor</small>
+    </div>
+  </footer>
+
+  <script type="module" src="src/main.js"></script>
+  
+</body>
+</html>

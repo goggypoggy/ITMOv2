@@ -1,0 +1,5 @@
+tmpdir="$(mktemp -d)"
+git clone --depth 1 https://github.com/anthropics/skills.git "$tmpdir/anthropic-skills"
+mkdir -p .opencode/skills
+cp -R "$tmpdir/anthropic-skills/skills/frontend-design" .opencode/skills/frontend-design
+rm -rf "$tmpdir"
