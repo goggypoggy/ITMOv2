@@ -71,9 +71,19 @@
    - Артефакт: `evidence/before/reviews_view.html`
    - Риск: XSS в viewer; prompt injection для LLM.
 
-10. LLM сценарии (зафиксированный контекст)
-   - Контекст ассистента сохраняется: `evidence/before/assistant_context.json`.
-   - Планируется запуск `shop-planner` по методике из lab/README.md (см. REPORT_02 для сопоставления до/после фиксов).
+10. Проблемы LLM-ассистента (до правок)
+    - Контекст ассистента включает отзывы без экранирования/фильтрации, что создаёт канал prompt injection.
+      Evidence: `evidence/before/assistant_context_malicious.json` (вредоносная инструкция из отзыва),
+                `evidence/before/assistant_context.json` (базовый контекст),
+                `evidence/before/reviews_view.html` (несанитизированный HTML).
+    - Исполнитель инструментов не требовал аутентификации и не проверял роль: опасные инструменты доступны анонимно.
+      Evidence: `evidence/before/assistant_execute_anonymous.json` — успешный `export_profiles` без токена (утечка профилей).
+    - Отсутствовали ограничения на пути для инструментов ассистента (read_file/delete_tree): потенциально возможно читать чужие файлы
+      и удалять дерево файлов. Фактические блокировки и результаты после фиксов приведены в REPORT_02.
+    
+11. LLM сценарии (зафиксированный контекст)
+    - Контекст ассистента сохранён: `evidence/before/assistant_context.json`.
+    - Запуски `shop-planner` выполнены после фиксов; результаты и сопоставления приведены в REPORT_02.
 
 ## Выводы
 
