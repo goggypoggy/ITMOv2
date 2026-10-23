@@ -1,0 +1,62 @@
+[
+  {
+    "method": "GET",
+    "target": "/profile?id=1 OR 1=1",
+    "body": {},
+    "headers": {}
+  },
+  {
+    "method": "GET",
+    "target": "/search?q=%' OR '1'='1",
+    "body": {},
+    "headers": {}
+  },
+  {
+    "method": "GET",
+    "target": "/orders",
+    "body": {},
+    "headers": {}
+  },
+  {
+    "method": "GET",
+    "target": "/admin/export",
+    "body": {},
+    "headers": {
+      "X-Role": "staff"
+    }
+  },
+  {
+    "method": "POST",
+    "target": "/login",
+    "body": {
+      "username": "alice",
+      "password": "learn-alice"
+    },
+    "headers": {}
+  },
+  {
+    "method": "POST",
+    "target": "/orders",
+    "body": {
+      "product": "chair",
+      "price": 1
+    },
+    "headers": {
+      "X-Token": "2bd43ce8e0e94b9c9deb27f1c5a3b3cc"
+    }
+  },
+  {
+    "method": "GET",
+    "target": "/files?user=bob&path=receipt.txt",
+    "body": {},
+    "headers": {
+      "X-Token": "2bd43ce8e0e94b9c9deb27f1c5a3b3cc"
+    }
+  },
+  {
+    "method": "GET",
+    "target": "/debug/logs",
+    "body": {},
+    "headers": {}
+  }
+]
