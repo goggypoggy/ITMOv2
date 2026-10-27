@@ -84,3 +84,25 @@
   - OpenSpec использован через npx из‑за ограничений прав на глобальную установку (EACCES).
   - Изменение помечено skip_specs: true, так как спецификационные требования системы не менялись — добавлено прикладное UI‑действие.
   - Сервер запущен в фоне для e2e‑тестов; остановка через Ctrl+C в соответствующем терминале при ручном запуске.
+
+### Дополнения по ревью (не от проверяющего, а собственного, промежуточного): подтверждения и «до/после»
+
+- GHSK «до/после» и диффы:
+  - До: `specs-ghsk/ui-spec.before.md`, `specs-ghsk/logic-spec.before.md`
+  - После: `specs-ghsk/ui-spec.md`, `specs-ghsk/logic-spec.md`
+  - Diff: `specs-ghsk/diff-ui.md`, `specs-ghsk/diff-logic.md`
+  - Контракт: `specs-ghsk/contract.md`
+
+- Правило OpenSpec (Mermaid):
+  - До: `practices/practice_05/artifacts/openspec/design-before.md`
+  - Инструкции CLI: `practices/practice_05/artifacts/openspec/instructions-design.json`
+  - Diff формы: `practices/practice_05/artifacts/openspec/design-diff.md`
+
+- Подтверждения OpenSpec CLI:
+  - `list.txt`, `list-specs.txt`, `show-change.txt`, `validate-change.txt`, `view.txt` в `practices/practice_05/artifacts/openspec/`
+
+- Приёмка «Reset»:
+  - `practices/practice_05/artifacts/acceptance-reset.md`
+
+- Сравнение фреймворков:
+  - `practices/practice_05/ghsk-vs-openspec.md`

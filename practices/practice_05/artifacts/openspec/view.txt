@@ -1,0 +1,17 @@
+
+OpenSpec Dashboard
+
+════════════════════════════════════════════════════════════
+Summary:
+  ● Specifications: 0 specs, 0 requirements
+  ● Draft Changes: 1
+  ● Active Changes: 0 in progress
+  ● Completed Changes: 0
+
+Draft Changes
+────────────────────────────────────────────────────────────
+  ○ reset-level-to-default
+
+════════════════════════════════════════════════════════════
+
+Use openspec list --changes or openspec list --specs for detailed views
