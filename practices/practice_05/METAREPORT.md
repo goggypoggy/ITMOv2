@@ -85,8 +85,6 @@
   - Изменение помечено skip_specs: true, так как спецификационные требования системы не менялись — добавлено прикладное UI‑действие.
   - Сервер запущен в фоне для e2e‑тестов; остановка через Ctrl+C в соответствующем терминале при ручном запуске.
 
-### Дополнения по ревью (не от проверяющего, а собственного, промежуточного): подтверждения и «до/после»
-
 - GHSK «до/после» и диффы:
   - До: `specs-ghsk/ui-spec.before.md`, `specs-ghsk/logic-spec.before.md`
   - После: `specs-ghsk/ui-spec.md`, `specs-ghsk/logic-spec.md`
@@ -106,3 +104,7 @@
 
 - Сравнение фреймворков:
   - `practices/practice_05/ghsk-vs-openspec.md`
+
+- Создание объясняющих mermaid-схем:
+  - Mermaid: `practices/practice_05/mermaid/ghsk-cycle.md`, `practices/practice_05/mermaid/openspec-cycle.md`, `practices/practice_05/mermaid/reset-feature-sequence.md`
+  - Mermaid, зарендеренный: `practices/practice_05/mermaid/ghsk-cycle.png`, `practices/practice_05/mermaid/openspec-cycle.png`, `practices/practice_05/mermaid/reset-feature-sequence.png`
