@@ -1,0 +1,110 @@
+
+> test
+> playwright test
+
+
+Running 4 tests using 3 workers
+
+  ✓  2 tests/feature-b-time-calculator.spec.ts:4:7 › Feature B: Time Calculator › computes ETA and validates hours (1.0s)
+  ✓  1 tests/feature-a-level-switcher.spec.ts:4:7 › Feature A: Level Switcher › renders default level and updates program and pricing on change (1.2s)
+  ✓  3 tests/feature-a-reset-level.spec.ts:4:7 › Feature A: Reset Level › resets level to Novice and updates sections (1.1s)
+  ✘  4 tests/feature-a-reset-level.spec.ts:23:7 › Feature A: Reset Level › idempotent reset when Novice is already active (6.1s)
+
+
+  1) tests/feature-a-reset-level.spec.ts:23:7 › Feature A: Reset Level › idempotent reset when Novice is already active 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: locator('#pricing-cards')
+    Timeout: 5000ms
+    - Expected  - 12
+    + Received  + 21
+
+    - Старт
+    - ₽1 990/мес
+    - 2 группы в неделю
+    - Домашние задания
+    - Чат поддержки
+    +
+    +       
+    +         
+    +           Старт
+    +           ₽1 990/мес
+    +         
+    +         
+    +           2 группы в неделюДомашние заданияЧат поддержки
+    - Выбрать
+    - Плюс
+    - ₽3 490/мес
+    - + 1:1 сессия/мес
+    - Куратор
+    - Малые группы
+    +         
+    +         Выбрать
+    +       
+    +       
+    +         
+    +           Плюс
+    +           ₽3 490/мес
+    +         
+    +         
+    +           + 1:1 сессия/месКураторМалые группы
+    - Выбрать
+    +         
+    +         Выбрать
+    +       
+
+    Call log:
+      - Expect "toHaveText" locator('#pricing-cards') with timeout 5000ms
+      - waiting for locator('#pricing-cards')
+        14 × locator resolved to <div class="pricing" id="pricing-cards" aria-live="polite">…</div>
+           - unexpected value "
+          
+            
+              Старт
+              ₽1 990/мес
+            
+            
+              2 группы в неделюДомашние заданияЧат поддержки
+            
+            Выбрать
+          
+          
+            
+              Плюс
+              ₽3 490/мес
+            
+            
+              + 1:1 сессия/месКураторМалые группы
+            
+            Выбрать
+          "
+
+
+      37 |     await expect(page.getByRole('tab', { name: 'Новичок' })).toHaveAttribute('aria-selected', 'true');
+      38 |     await expect(page.locator('#catalog-list')).toHaveText(catalogBefore);
+    > 39 |     await expect(page.locator('#pricing-cards')).toHaveText(pricingBefore);
+         |                                                  ^
+      40 |   });
+      41 | });
+      42 |
+        at /mnt/d/uni/ai/ITMOv2/practices/practice_04/tests/feature-a-reset-level.spec.ts:39:50
+
+    Error Context: test-results/feature-a-reset-level-Feat-9634e-en-Novice-is-already-active/error-context.md
+
+  1 failed
+    tests/feature-a-reset-level.spec.ts:23:7 › Feature A: Reset Level › idempotent reset when Novice is already active 
+  3 passed (11.0s)
+
+> test
+> playwright test
+
+
+Running 4 tests using 3 workers
+
+  ✓  2 tests/feature-a-level-switcher.spec.ts:4:7 › Feature A: Level Switcher › renders default level and updates program and pricing on change (1.6s)
+  ✓  1 tests/feature-b-time-calculator.spec.ts:4:7 › Feature B: Time Calculator › computes ETA and validates hours (1.8s)
+  ✓  3 tests/feature-a-reset-level.spec.ts:4:7 › Feature A: Reset Level › resets level to Novice and updates sections (2.1s)
+  ✓  4 tests/feature-a-reset-level.spec.ts:23:7 › Feature A: Reset Level › idempotent reset when Novice is already active (799ms)
+
+  4 passed (6.5s)
