@@ -16,6 +16,13 @@
             "context": 65536,
             "output": 4096
           }
+        },
+        "itmo-local": {
+          "name": "ITMO local system",
+          "limit": {
+            "context": 4096,
+            "output": 512
+          }
         }
       }
     }
