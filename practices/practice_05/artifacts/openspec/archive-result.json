@@ -1,0 +1,14 @@
+{
+  "archive": null,
+  "root": {
+    "path": "/mnt/d/uni/ai/ITMOv2/practices/practice_04",
+    "source": "nearest"
+  },
+  "status": [
+    {
+      "severity": "error",
+      "code": "archive_target_exists",
+      "message": "Archive '2026-10-27-reset-level-to-default' already exists."
+    }
+  ]
+}

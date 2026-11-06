@@ -39,6 +39,7 @@ export function initLevelSwitcher({ onChange } = {}) {
   const buttons = Array.from(switcher.querySelectorAll('.level-switcher__btn'));
   const catalogEl = document.getElementById('catalog-list');
   const pricingEl = document.getElementById('pricing-cards');
+  const resetBtn = document.getElementById('level-reset');
 
   function setActive(level) {
     buttons.forEach((b) => {
@@ -69,6 +70,11 @@ export function initLevelSwitcher({ onChange } = {}) {
 
   // default
   apply('Новичок');
+
+  // optional reset to default level (Новичок)
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => apply('Новичок'));
+  }
 }
 
 // Named exports for rendering if needed elsewhere
