@@ -54,11 +54,24 @@ class Shop:
             self.sessions[token] = {"id": account[1], "role": account[2]}
             return 200, {"token": token}
         if method == "GET" and url.path == "/profile":
-            return 200, self.rows(f"SELECT * FROM profiles WHERE id = {query.get('id', '1')}")
+            # Validate numeric id to prevent SQL injection; default to 1
+            try:
+                requested_id = int(query.get('id', '1'))
+            except (TypeError, ValueError):
+                return 400, {"error": "invalid id"}
+            return 200, self.rows(f"SELECT * FROM profiles WHERE id = {requested_id}")
         if method == "GET" and url.path == "/search":
-            return 200, self.rows(f"SELECT * FROM profiles WHERE name LIKE '%{query.get('q', '')}%'")
+            # Use parameterized LIKE to avoid injection of wildcards and quotes
+            q = query.get('q', '')
+            pattern = f"%{q}%"
+            results = [dict(row) for row in self.db.execute("SELECT * FROM profiles WHERE name LIKE ?", (pattern,))]
+            return 200, results
         if method == "GET" and url.path == "/orders":
-            return 200, self.rows("SELECT * FROM orders")
+            # Only authenticated users and only own orders
+            session = self.sessions.get(headers.get("X-Token"))
+            if not session:
+                return 401, {"error": "login required"}
+            return 200, self.rows(f"SELECT * FROM orders WHERE owner = {session['id']}")
         if method == "POST" and url.path == "/orders":
             session = self.sessions.get(headers.get("X-Token"))
             if not session:
@@ -72,19 +85,46 @@ class Shop:
             self.db.commit()
             return 201, {"id": cursor.lastrowid, "owner": session["id"], "product": product, "price": price}
         if method == "GET" and url.path == "/admin/export":
-            if headers.get("X-Role") != "staff":
+            # Authorize via server-side session role; ignore client-provided role header
+            session = self.sessions.get(headers.get("X-Token"))
+            if not session or session.get("role") != "staff":
                 return 403, {"error": "staff only"}
             return 200, self.rows("SELECT * FROM profiles")
         if method == "GET" and url.path == "/files":
-            name = f"files/{query.get('user', 'alice')}/{query.get('path', 'receipt.txt')}"
+            # Enforce user from session and restrict paths within own directory
+            session = self.sessions.get(headers.get("X-Token"))
+            if not session:
+                return 401, {"error": "login required"}
+            user = {1: 'alice', 2: 'bob'}.get(session['id'])
+            if not user:
+                return 403, {"error": "forbidden"}
+            rel = query.get('path', 'receipt.txt')
+            if '/' in rel or '\\' in rel:
+                return 400, {"error": "invalid path"}
+            name = f"files/{user}/{rel}"
             return 200, {"content": self.sandbox.read(name)}
         if method == "GET" and url.path == "/debug/logs":
-            return 200, self.logs.copy()
+            # Restrict logs to staff and mask tokens
+            session = self.sessions.get(headers.get("X-Token"))
+            if not session or session.get("role") != "staff":
+                return 403, {"error": "staff only"}
+            def masked(entry):
+                e = dict(entry)
+                hs = dict(e.get('headers', {}))
+                if 'X-Token' in hs:
+                    hs['X-Token'] = '***'
+                e['headers'] = hs
+                return e
+            return 200, [masked(e) for e in self.logs]
         if method == "POST" and url.path == "/reviews":
             self.reviews.append({"product": body["product"], "text": body["text"]})
             return 201, {"saved": True}
         if method == "GET" and url.path == "/reviews/view":
-            return 200, "<html><body>" + "".join(f"<p>{r['text']}</p>" for r in self.reviews) + "</body></html>"
+            # Escape HTML to prevent XSS in viewer
+            def esc(s):
+                return (s.replace('&','&amp;').replace('<','&lt;').replace('>','&gt;')
+                        .replace('"','&quot;').replace("'",'&#39;'))
+            return 200, "<html><body>" + "".join(f"<p>{esc(r['text'])}</p>" for r in self.reviews) + "</body></html>"
         if method == "GET" and url.path == "/assistant/context":
             orders = self.rows(f"SELECT * FROM orders WHERE id = {query.get('order_id', '1')}")
             prompt = (
@@ -97,15 +137,31 @@ class Shop:
             )
             return 200, {"prompt": prompt}
         if method == "POST" and url.path == "/assistant/execute":
+            # Require session and restrict tools by role; validate paths inside sandbox
+            session = self.sessions.get(headers.get("X-Token"))
+            if not session:
+                return 401, {"error": "login required"}
             decision = body["decision"]
             tool, arguments = decision["tool"], decision.get("arguments", {})
             if tool == "read_file":
-                return 200, {"content": self.sandbox.read(arguments["path"])}
+                # Only allow reading own files for customers
+                uid = session['id']
+                user = {1: 'alice', 2: 'bob'}.get(uid)
+                path = arguments.get("path", "")
+                if not user or not path.startswith(f"files/{user}/"):
+                    return 403, {"error": "forbidden path"}
+                return 200, {"content": self.sandbox.read(path)}
             if tool == "export_profiles":
+                if session.get("role") != "staff":
+                    return 403, {"error": "staff only"}
                 return 200, self.rows("SELECT * FROM profiles")
             if tool == "delete_tree":
-                self.sandbox.delete_tree(arguments["path"])
-                return 200, {"deleted": arguments["path"]}
+                # Only staff can delete
+                if session.get("role") != "staff":
+                    return 403, {"error": "staff only"}
+                target = arguments.get("path", "")
+                self.sandbox.delete_tree(target)
+                return 200, {"deleted": target}
             return 400, {"error": "unknown tool"}
         return 404, {"error": "not found"}
 
